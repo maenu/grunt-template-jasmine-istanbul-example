@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Jasmine Spec Runner</title>
+		<% css.forEach(function(style){ %>
+			<link rel="stylesheet" type="text/css" href="<%= style %>">
+		<% }) %>
+		<% with (scripts) { %>
+			<% [].concat(jasmine, vendor, helpers, src, specs).forEach(function(script){ %>
+				<script src="<%= script %>"></script>
+			<% }) %>
+		<% }; %>
+		<script>
+			function sendMessage() {
+				var args = [].slice.call(arguments);
+				var payload = JSON.stringify(args);
+				if (window._phantom) {
+					alert(payload);
+				} else {
+					console.log(payload);
+				}
+			}
+			var reporter = new jasmine.Reporter();
+			reporter.reportRunnerResults = function (runner) {
+				if (window.__coverage__) {
+					sendMessage('jasmine.coverage', __coverage__);
+				}
+			};
+			 jasmine.getEnv().addReporter(reporter);
+		</script>
+		<% with (scripts) { %>
+			<% [].concat(reporters, start).forEach(function(script){ %>
+				<script src="<%= script %>"></script>
+			<% }) %>
+		<% }; %>
+	</head>
+	<body>
+	</body>
+</html>
