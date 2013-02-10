@@ -11,24 +11,21 @@
 				<script src="<%= script %>"></script>
 			<% }) %>
 		<% }; %>
+		
 		<script>
-			function sendMessage() {
-				var args = [].slice.call(arguments);
-				var payload = JSON.stringify(args);
-				if (window._phantom) {
-					alert(payload);
-				} else {
-					console.log(payload);
-				}
-			}
 			var reporter = new jasmine.Reporter();
 			reporter.reportRunnerResults = function (runner) {
 				if (window.__coverage__) {
-					sendMessage('jasmine.coverage', __coverage__);
+					// phantom is exposed by jasmine's PhantomReporter
+					phantom.sendMessage('jasmine.coverage', __coverage__);
 				}
 			};
 			 jasmine.getEnv().addReporter(reporter);
 		</script>
+		<% phantomjs.on('jasmine.coverage', function (coverage) { %>
+			<% global.__coverage__ = coverage; %>
+		<% }); %>
+		
 		<% with (scripts) { %>
 			<% [].concat(reporters, start).forEach(function(script){ %>
 				<script src="<%= script %>"></script>

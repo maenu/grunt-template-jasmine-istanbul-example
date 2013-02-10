@@ -44,9 +44,4 @@ module.exports = function(grunt) {
 	grunt.registerTask('test', 'jasmine:src');
 	grunt.registerTask('coverage', ['instrument', 'jasmine:coverage',
 			'storeCoverage', 'makeReport']);
-	
-	// needed to make grunt-istanbul storeReport
-	grunt.event.on('jasmine.coverage', function (coverage) {
-		global.__coverage__ = coverage
-	});
 };
