@@ -18,7 +18,7 @@ it uses the packages
 [grunt](https://github.com/gruntjs/grunt),
 [istanbul](https://github.com/gotwarlost/istanbul),
 and
-[grunt-contrib-jasmine](https://github.com/maenu/grunt-contrib-jasmine).
+[grunt-contrib-jasmine](https://github.com/gruntjs/grunt-contrib-jasmine).
 
 A custom template, see
 [src/test/js/template-coverage.js](src/test/js/template-coverage.js),
