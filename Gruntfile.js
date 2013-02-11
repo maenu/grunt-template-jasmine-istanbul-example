@@ -6,13 +6,16 @@ module.exports = function(grunt) {
 				main: 'src/main',
 				test: 'src/test',
 			},
+			lib: {
+				main: 'lib/main',
+				test: 'lib/test',
+			},
 			bin: {
 				coverage: 'bin/coverage'
 			}
 		},
 		jasmine: {
 			src: '<%= meta.src.main %>/js/*.js',
-			coverage: '<%= meta.bin.coverage %>/<%= meta.src.main %>/js/*.js',
 			options: {
 				template: '<%= meta.src.test %>/html/Coverage.tmpl',
 				specs: '<%= meta.src.test %>/js/*.js'
@@ -42,6 +45,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
 	
 	grunt.registerTask('test', 'jasmine:src');
-	grunt.registerTask('coverage', ['instrument', 'jasmine:coverage',
+	grunt.registerTask('coverage', ['jasmine:src',
 			'storeCoverage', 'makeReport']);
 };

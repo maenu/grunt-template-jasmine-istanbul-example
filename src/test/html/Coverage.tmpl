@@ -7,7 +7,23 @@
 			<link rel="stylesheet" type="text/css" href="<%= style %>">
 		<% }) %>
 		<% with (scripts) { %>
-			<% [].concat(jasmine, vendor, helpers, src, specs).forEach(function(script){ %>
+			<% [].concat(jasmine, vendor, helpers).forEach(function(script){ %>
+				<script src="<%= script %>"></script>
+			<% }) %>
+		<% }; %>
+		
+		<% var istanbul = require('istanbul'); %>
+		<% var instrumenter = new istanbul.Instrumenter(); %>
+		<% with (scripts) { %>
+			<% [].concat(src).forEach(function(script){ %>
+				<script>
+					<%= instrumenter.instrumentSync(grunt.file.read(script), script) %>
+				</script>
+			<% }) %>
+		<% }; %>
+		
+		<% with (scripts) { %>
+			<% [].concat(specs).forEach(function(script){ %>
 				<script src="<%= script %>"></script>
 			<% }) %>
 		<% }; %>
@@ -20,11 +36,14 @@
 					phantom.sendMessage('jasmine.coverage', __coverage__);
 				}
 			};
-			 jasmine.getEnv().addReporter(reporter);
+			jasmine.getEnv().addReporter(reporter);
 		</script>
-		<% phantomjs.on('jasmine.coverage', function (coverage) { %>
-			<% global.__coverage__ = coverage; %>
-		<% }); %>
+		
+		<%
+			phantomjs.on('jasmine.coverage', function (coverage) {
+				global.__coverage__ = coverage;
+			});
+		%>
 		
 		<% with (scripts) { %>
 			<% [].concat(reporters, start).forEach(function(script){ %>
