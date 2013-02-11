@@ -1,6 +1,6 @@
 {
   "name": "example-grunt-jasmine-istanbul",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "author": {
     "name": "Manuel Leuenberger"
   },
@@ -10,7 +10,6 @@
   },
   "devDependencies": {
     "grunt": "~0.4.0rc7",
-    "grunt-istanbul": "git://github.com/taichi/grunt-istanbul.git",
     "istanbul": "~0.1.30",
     "grunt-contrib-jasmine": "git://github.com/maenu/grunt-contrib-jasmine.git"
   }

@@ -13,11 +13,16 @@
 		<% }; %>
 		
 		<%
-			phantomjs.on('jasmine.coverage', function (coverage) {
-				grunt.file.write(options.coverage, JSON.stringify(coverage));
-			});
 			var istanbul = require('istanbul');
 			var instrumenter = new istanbul.Instrumenter();
+			var reporter = istanbul.Report.create('html', {
+				dir: options.report
+			});
+			var collector = new istanbul.Collector();
+			phantomjs.on('jasmine.coverage', function (coverage) {
+				collector.add(coverage);
+				reporter.writeReport(collector, true);
+			});
 		%>
 		<% with (scripts) { %>
 			<% [].concat(src).forEach(function(script){ %>
