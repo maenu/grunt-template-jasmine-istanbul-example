@@ -20,8 +20,10 @@ it uses the packages
 and
 [grunt-contrib-jasmine](https://github.com/maenu/grunt-contrib-jasmine).
 
-A custom template that adds a custom reporter manages the collecting and processing of the coverage data, see
-[src/test/html/Coverage.tmpl](src/test/html/Coverage.tmpl).
+A custom template, see
+[src/test/js/template-coverage.js](src/test/js/template-coverage.js),
+that adds a custom reporter manages the collecting and processing of the coverage data, see
+[src/test/js/coverage-helper.js](src/test/js/coverage-helper.js).
 This reporter sends the coverage data to PhantomJS with the event named `jasmine.coverage`.
 We listen for this event and generate the reports.
 The instrumentation and report generation all happen inside the template, which makes the configuration in

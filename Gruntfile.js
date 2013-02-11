@@ -15,12 +15,17 @@ module.exports = function(grunt) {
 			}
 		},
 		jasmine: {
-			coverage: '<%= meta.src.main %>/js/*.js',
+			coverage: '<%= meta.src.main %>/js/Generator.js',
 			options: {
-				specs: '<%= meta.src.test %>/js/*.js',
-				template: '<%= meta.src.test %>/html/Coverage.tmpl',
+				specs: '<%= meta.src.test %>/js/Generator.js',
+				template: require('./src/test/js/template-coverage.js'),
 				templateOptions: {
-					report: '<%= meta.bin.coverage %>'
+					// coverage data will be written to this file
+					coverage: '<%= meta.bin.coverage %>/coverage.json',
+					// coverage report will be created in this directory
+					report: '<%= meta.bin.coverage %>',
+					// this is the actual template used, coverage is just mixed in
+					template: 'node_modules/grunt-contrib-jasmine/tasks/jasmine/templates/DefaultRunner.tmpl'
 				}
 			}
 		}
