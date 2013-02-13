@@ -6,10 +6,6 @@ module.exports = function(grunt) {
 				main: 'src/main',
 				test: 'src/test',
 			},
-			lib: {
-				main: 'lib/main',
-				test: 'lib/test',
-			},
 			bin: {
 				coverage: 'bin/coverage'
 			}
