@@ -1,31 +1,13 @@
 # What is this?
 
-Example application to show how to setup grunt-istanbul with
-grunt-contrib-jasmine.
+Example application to show how to use
+[grunt-template-jasmine-istanbul](https://github.com/maenu/grunt-template-jasmine-istanbul).
 
 To get the coverage reports, download this repo and run:
 ```bash
 npm install
-grunt coverage
+grunt test:coverage
 ```
 and the coverage reports will appear in `bin/coverage/index.html`.
 
-# How does it work?
-
-As you can see in
-[package.json](package.json),
-it uses the packages
-[grunt](https://github.com/gruntjs/grunt),
-[istanbul](https://github.com/gotwarlost/istanbul),
-and
-[grunt-contrib-jasmine](https://github.com/gruntjs/grunt-contrib-jasmine).
-
-A custom template, see
-[src/test/js/template-coverage.js](src/test/js/template-coverage.js),
-that adds a custom reporter manages the collecting and processing of the coverage data, see
-[src/test/js/coverage-helper.js](src/test/js/coverage-helper.js).
-This reporter sends the coverage data to PhantomJS with the event named `jasmine.coverage`.
-We listen for this event and generate the reports.
-The instrumentation and report generation all happen inside the template, which makes the configuration in
-[Gruntfile.js](Gruntfile.js)
-pretty simple.
+Have a look at the [Gruntfile.js](Gruntfile.js) for an example configuration.
