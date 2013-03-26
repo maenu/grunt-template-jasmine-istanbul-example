@@ -31,7 +31,13 @@ module.exports = function(grunt) {
 									dir: '<%= meta.bin.coverage %>/cobertura'
 								}
 							}
-						]
+						],
+						template: require('grunt-template-jasmine-requirejs'),
+						templateOptions: {
+							requireConfig: {
+								baseUrl: '.grunt/grunt-contrib-jasmine/<%= meta.src.main %>/js/'
+							}
+						}
 					}
 				}
 			}
