@@ -4,17 +4,21 @@ module.exports = function(grunt) {
 			package: grunt.file.readJSON('package.json'),
 			src: {
 				main: 'src/main',
-				test: 'src/test',
+				test: 'src/test'
 			},
 			bin: {
 				coverage: 'bin/coverage'
 			}
 		},
+		connect: {
+			default_options: {}
+		},
 		jasmine: {
 			coverage: {
-				src: '<%= meta.src.main %>/js/Generator.js',
+				src: '<%= meta.src.main %>/js/*.js',
 				options: {
 					specs: '<%= meta.src.test %>/js/Generator.js',
+					host: 'http://127.0.0.1:8000/',
 					template: require('grunt-template-jasmine-istanbul'),
 					templateOptions: {
 						coverage: '<%= meta.bin.coverage %>/coverage.json',
@@ -45,6 +49,7 @@ module.exports = function(grunt) {
 	});
 	
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
+	grunt.loadNpmTasks('grunt-contrib-connect');
 	
-	grunt.registerTask('test:coverage', ['jasmine:coverage']);
+	grunt.registerTask('test:coverage', ['connect', 'jasmine:coverage']);
 };
