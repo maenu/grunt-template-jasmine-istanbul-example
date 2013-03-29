@@ -1,5 +1,7 @@
-define({
-	getRandomNumber: function () {
-		return 4;
-	}
+define(['Enum'], function(Enum) {
+    return function (){
+        this.getRandomNumber = function() {
+            return Enum.FOUR;
+        };
+    };
 });
