@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 			package: grunt.file.readJSON('package.json'),
 			src: {
 				main: 'src/main',
-				test: 'src/test',
+				test: 'src/test'
 			},
 			bin: {
 				coverage: 'bin/coverage'
@@ -12,9 +12,9 @@ module.exports = function(grunt) {
 		},
 		jasmine: {
 			coverage: {
-				src: '<%= meta.src.main %>/js/Generator.js',
+				src: '<%= meta.src.main %>/js/*.js',
 				options: {
-					specs: '<%= meta.src.test %>/js/Generator.js',
+					specs: '<%= meta.src.test %>/js/*.js',
 					template: require('grunt-template-jasmine-istanbul'),
 					templateOptions: {
 						coverage: '<%= meta.bin.coverage %>/coverage.json',
