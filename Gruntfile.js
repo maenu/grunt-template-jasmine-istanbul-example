@@ -14,12 +14,15 @@ module.exports = function(grunt) {
 			}
 		},
 		connect: {
+			// 1. setup connect task to use
 			coverage: {
 				options: {
 					port: '<%= meta.port.coverage %>',
 					middleware: function (connect, options) {
 						// build paths
 						var src = [];
+						// 2. get sources to be instrumented from the config
+						//    you may need to adjust this to point to the correct option
 						grunt.file.expand(grunt.config.get('jasmine.coverage.src')).forEach(function (file) {
 							src.push('/' + file);
 						});
@@ -54,16 +57,15 @@ module.exports = function(grunt) {
 								}
 							},
 							{
-								type: 'cobertura',
-								options: {
-									dir: '<%= meta.bin.coverage %>/cobertura'
-								}
+								type: 'text-summary'
 							}
 						],
-						transitive: false,
+						// 3. don't replace the sources with the instrumented sources, we'll do that on the server
+						replace: false,
 						template: require('grunt-template-jasmine-requirejs'),
 						templateOptions: {
 							requireConfig: {
+								// 4. use you default baseUrl
 								baseUrl: './<%= meta.src.main %>/js/'
 							}
 						}
