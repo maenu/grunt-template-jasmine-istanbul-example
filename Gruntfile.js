@@ -32,10 +32,37 @@ module.exports = function(grunt) {
 								}
 							}
 						],
+						replace: false,
 						template: require('grunt-template-jasmine-requirejs'),
 						templateOptions: {
 							requireConfig: {
-								baseUrl: '.grunt/grunt-contrib-jasmine/<%= meta.src.main %>/js/'
+								baseUrl: './<%= meta.src.main %>/js/',
+								config: {
+									instrumented: {
+										src: grunt.file.expand('src/main/js/*.js')
+									}
+								},
+								callback: function () {
+									define('instrumented', ['module'], function (module) {
+										return module.config().src;
+									});
+									require(['instrumented'], function (instrumented) {
+										var oldLoad = requirejs.load;
+										requirejs.load = function (context, moduleName, url) {
+											// normalize paths
+											if (url.substring(0, 1) == '/') {
+												url = url.substring(1);
+											} else if (url.substring(0, 2) == './') {
+												url = url.substring(2);
+											}
+											// redirect
+											if (instrumented.indexOf(url) > -1) {
+												url = './.grunt/grunt-contrib-jasmine/' + url;
+											}
+											return oldLoad.apply(this, [context, moduleName, url]);
+										};
+									});
+								}
 							}
 						}
 					}
