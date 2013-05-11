@@ -45,6 +45,7 @@ module.exports = function(grunt) {
 				src: '<%= meta.src.main %>/js/*.js',
 				options: {
 					specs: '<%= meta.src.test %>/js/*.js',
+					// 3. connect to the correct server
 					host: 'http://localhost:<%= meta.port.coverage %>/',
 					template: require('grunt-template-jasmine-istanbul'),
 					templateOptions: {
@@ -60,12 +61,12 @@ module.exports = function(grunt) {
 								type: 'text-summary'
 							}
 						],
-						// 3. don't replace the sources with the instrumented sources, we'll do that on the server
+						// 4. don't replace the sources with the instrumented sources, we'll do that on the server
 						replace: false,
 						template: require('grunt-template-jasmine-requirejs'),
 						templateOptions: {
 							requireConfig: {
-								// 4. use you default baseUrl
+								// 5. use you default baseUrl
 								baseUrl: './<%= meta.src.main %>/js/'
 							}
 						}
