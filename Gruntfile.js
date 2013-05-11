@@ -30,6 +30,9 @@ module.exports = function(grunt) {
 								options: {
 									dir: '<%= meta.bin.coverage %>/cobertura'
 								}
+							},
+							{
+								type: 'text-summary'
 							}
 						]
 					}
