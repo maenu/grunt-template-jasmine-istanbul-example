@@ -26,10 +26,7 @@ module.exports = function(grunt) {
 								}
 							},
 							{
-								type: 'cobertura',
-								options: {
-									dir: '<%= meta.bin.coverage %>/cobertura'
-								}
+								type: 'text-summary'
 							}
 						],
 						// 1. don't replace src for the mixed-in template with instrumented sources
