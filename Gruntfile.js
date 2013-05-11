@@ -32,16 +32,22 @@ module.exports = function(grunt) {
 								}
 							}
 						],
+						// 1. don't replace src for the mixed-in template with instrumented sources
 						replace: false,
 						template: require('grunt-template-jasmine-requirejs'),
 						templateOptions: {
 							requireConfig: {
+								// 2. use the baseUrl you want
 								baseUrl: './<%= meta.src.main %>/js/',
+								// 3. pass paths of the sources being instrumented as a configuration option
+								//    these paths should be the same as the jasmine task's src
+								//    unfortunately, grunt.config.get() doesn't work because the config is just being evaluated
 								config: {
 									instrumented: {
 										src: grunt.file.expand('src/main/js/*.js')
 									}
 								},
+								// 4. use this callback to read the paths of the sources being instrumented and redirect requests to them appropriately
 								callback: function () {
 									define('instrumented', ['module'], function (module) {
 										return module.config().src;
